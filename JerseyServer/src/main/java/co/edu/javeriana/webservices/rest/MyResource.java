@@ -51,11 +51,24 @@ public class MyResource {
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	public Article getArticle() {
 		Author juan = new Author(1, "Juan Manuel", "Sánchez Lozano");
-		Author david = new Author(1, "David", "Villamizar Lizcano");
-		Article article = new Article(1, "Titulo del articulaso");
-		article.addAuthor(juan);
-		article.addAuthor(david);
-		return article;
+		Author david = new Author(2, "David", "Villamizar Lizcano");
+		Author sergio = new Author(3, "Sergio", "Forero Gómez");
+		Author sebas = new Author(4, "Sebastian", "Bobadilla");
+		Article article1 = new Article(1, "Titulo del articulaso");
+		Article article2 = new Article(2, "Titulo del articulaso");
+		Article article3 = new Article(3, "Titulo del articulaso");
+		Article article4 = new Article(4, "Titulo del articulaso");
+		article1.addAuthor(juan);
+		article1.addAuthor(david);
+		article2.addAuthor(juan);
+		article2.addAuthor(david);
+		article2.addAuthor(sergio);
+		article3.addAuthor(sebas);
+		article4.addAuthor(juan);
+		article4.addAuthor(david);
+		article4.addAuthor(sebas);
+		article4.addAuthor(sergio);
+		return article4;
 	}
 	
 	@POST
