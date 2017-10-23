@@ -3,13 +3,23 @@
 
 	<xs:element name="article" type="article" />
 
+	<xs:element name="author" type="author" />
+
+	<xs:element name="peercheck" type="peercheck" />
+
+	<xs:complexType name="peercheck">
+		<xs:sequence>
+			<xs:element ref="article" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
 	<xs:complexType name="article">
 		<xs:sequence>
 			<xs:element name="title" type="xs:string" />
 			<xs:element name="authors">
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="author" type="author" maxOccurs="unbounded" />
+						<xs:element ref="author" maxOccurs="unbounded" />
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>

@@ -49,26 +49,24 @@ public class MyResource {
 	@GET
 	@Path("/article") // http://localhost:8080/class/article
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public Article getArticle() {
-		Author juan = new Author(1, "Juan Manuel", "Sánchez Lozano");
-		Author david = new Author(2, "David", "Villamizar Lizcano");
-		Author sergio = new Author(3, "Sergio", "Forero Gómez");
-		Author sebas = new Author(4, "Sebastian", "Bobadilla");
-		Article article1 = new Article(1, "Titulo del articulaso");
-		Article article2 = new Article(2, "Titulo del articulaso");
-		Article article3 = new Article(3, "Titulo del articulaso");
-		Article article4 = new Article(4, "Titulo del articulaso");
-		article1.addAuthor(juan);
-		article1.addAuthor(david);
-		article2.addAuthor(juan);
-		article2.addAuthor(david);
-		article2.addAuthor(sergio);
-		article3.addAuthor(sebas);
-		article4.addAuthor(juan);
-		article4.addAuthor(david);
-		article4.addAuthor(sebas);
-		article4.addAuthor(sergio);
-		return article4;
+	public Peercheck getArticle() {
+		Peercheck peercheck = new Peercheck();
+		peercheck.addArticle("Titulo del articulaso");
+		peercheck.addArticle("Titulo del articulaso");
+		peercheck.addArticle("Titulo del articulaso");
+		peercheck.addArticle("Titulo del articulaso");
+		
+		peercheck.addAuthorToArticle(0, 1, "Juan Manuel", "Sánchez Lozano");
+		peercheck.addAuthorToArticle(0, 2, "Sergio", "Forero Gómez");
+		peercheck.addAuthorToArticle(1, 3, "David", "Villamizar Lizcano");
+		peercheck.addAuthorToArticle(1, 4, "Sebastian", "Bobadilla");
+		peercheck.addAuthorToArticle(1, 1, "Juan Manuel", "Sánchez Lozano");
+		peercheck.addAuthorToArticle(2, 3, "David", "Villamizar Lizcano");
+		peercheck.addAuthorToArticle(2, 4, "Sebastian", "Bobadilla");
+		peercheck.addAuthorToArticle(3, 3, "David", "Villamizar Lizcano");
+		peercheck.addAuthorToArticle(3, 2, "Sergio", "Forero Gómez");
+		
+		return peercheck;
 	}
 	
 	@POST

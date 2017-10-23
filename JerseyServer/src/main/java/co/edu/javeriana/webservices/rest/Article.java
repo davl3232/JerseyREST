@@ -44,6 +44,11 @@ public class Article {
 		this.authors = new Vector<>();
 	}
 	
+	public void addAuthor(long id, String name, String surname) {
+		Author author = new Author(id, name, surname);
+		this.addAuthor(author);
+	}
+	
 	public void addAuthor(Author author) {
 		this.authors.add(author);
 	}

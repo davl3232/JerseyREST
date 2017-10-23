@@ -2,9 +2,9 @@ package co.edu.javeriana.webservices.rest;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlType
+@XmlRootElement
 public class Author {
 	
 	@XmlAttribute(required = true)
