@@ -46,29 +46,6 @@ public class MyResource {
 		return a * b;
 	}
 	
-	@GET
-	@Path("/article") // http://localhost:8080/class/article
-	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public Peercheck getArticle() {
-		Peercheck peercheck = new Peercheck();
-		peercheck.addArticle("Titulo del articulaso");
-		peercheck.addArticle("Titulo del articulaso");
-		peercheck.addArticle("Titulo del articulaso");
-		peercheck.addArticle("Titulo del articulaso");
-		
-		peercheck.addAuthorToArticle(0, 1, "Juan Manuel", "Sánchez Lozano");
-		peercheck.addAuthorToArticle(0, 2, "Sergio", "Forero Gómez");
-		peercheck.addAuthorToArticle(1, 3, "David", "Villamizar Lizcano");
-		peercheck.addAuthorToArticle(1, 4, "Sebastian", "Bobadilla");
-		peercheck.addAuthorToArticle(1, 1, "Juan Manuel", "Sánchez Lozano");
-		peercheck.addAuthorToArticle(2, 3, "David", "Villamizar Lizcano");
-		peercheck.addAuthorToArticle(2, 4, "Sebastian", "Bobadilla");
-		peercheck.addAuthorToArticle(3, 3, "David", "Villamizar Lizcano");
-		peercheck.addAuthorToArticle(3, 2, "Sergio", "Forero Gómez");
-		
-		return peercheck;
-	}
-	
 	@POST
 	@Path("/fibbonaci/{n}") // http://localhost:8080/class/fibbonaci/13
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })

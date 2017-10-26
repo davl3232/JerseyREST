@@ -9,7 +9,7 @@
 
 	<xs:complexType name="peercheck">
 		<xs:sequence>
-			<xs:element ref="article" maxOccurs="unbounded" />
+			<xs:element ref="article" minOccurs="0" maxOccurs="unbounded" />
 		</xs:sequence>
 	</xs:complexType>
 
@@ -19,7 +19,7 @@
 			<xs:element name="authors">
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element ref="author" maxOccurs="unbounded" />
+						<xs:element ref="author" minOccurs="0" maxOccurs="unbounded" />
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
