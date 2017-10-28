@@ -42,7 +42,6 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
 
         for(Author author : article.getAuthors()) {
             autorAdapter.add(author);
-            Log.i("Autor", author.getName());
         }
 
         return convertView;
