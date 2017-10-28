@@ -53,7 +53,7 @@ public class RESTPeercheckService extends AsyncTask<String, Void, String> {
         String uri = SERVICE_URL + "/" + pathParams;
 
         HttpGet request = new HttpGet(uri);
-        request.addHeader("content-type", "application/json");
+        request.addHeader("Accept", "application/json");
         HttpClient client = new DefaultHttpClient();
         HttpResponse response = null;
 
@@ -67,7 +67,7 @@ public class RESTPeercheckService extends AsyncTask<String, Void, String> {
             Log.i(RESTPeercheckService.class.getName(), "Response message: " + message);
 
             if(entity != null) {
-                respondMessage = EntityUtils.toString(entity);
+                respondMessage = EntityUtils.toString(entity, "UTF-8");
             }
         } catch (IOException e) {
             Log.e(RESTPeercheckService.class.getName(), e.getMessage());
