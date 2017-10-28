@@ -20,11 +20,15 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+import co.edu.javeriana.webservice.rest.restclient.negocio.Article;
+import co.edu.javeriana.webservice.rest.restclient.negocio.Author;
 
 public class RESTPeercheckService extends AsyncTask<String, Void, String> {
 
-    //protected static final String SERVICE_URL = "http://restcountries.eu/rest/v2";
-    protected static final String SERVICE_URL = "http://localhost:8080/class";
+    protected static final String SERVICE_URL = "http://10.155.100.223:8080/class";
 
     private ProgressDialog dialog;
     private Activity activity;
@@ -77,17 +81,36 @@ public class RESTPeercheckService extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String response) {
-        Log.e(RESTPeercheckService.class.getName(), "Finalizado " + response);
-        JSONArray result;
+        Log.e(RESTPeercheckService.class.getName(), "Finalizado");
+        JSONObject result;
+        List<Article> articles = new ArrayList<>();
         try {
-            result = new JSONArray(response);
-            for(int i = 0; i < result.length(); i++) {
-                JSONObject object = result.getJSONObject(i);
-                Log.i("REST", object.toString());
+            result = new JSONObject(response);
+            JSONArray jsonarticles = result.getJSONArray("articles");
+            for(int i = 0; i < jsonarticles.length(); i++) {
+                Article article = new Article();
+                JSONObject articleObject = jsonarticles.getJSONObject(i);
+                article.setId(Long.parseLong(articleObject.getString("id")));
+                article.setTitle(articleObject.getString("title"));
+
+                JSONArray jsonautores = articleObject.getJSONArray("authors");
+                for(int j = 0; j < jsonautores.length(); j++) {
+                    JSONObject autorObject = jsonautores.getJSONObject(j);
+                    Author autor = new Author();
+                    autor.setId(autorObject.getInt("id"));
+                    autor.setName(autorObject.getString("name"));
+                    autor.setSurname(autorObject.getString("surname"));
+                    article.addAuthor(autor);
+                }
+
+                articles.add(article);
             }
         } catch (JSONException e) {
             Log.e(RESTPeercheckService.class.getName(), e.getMessage());
         }
         dialog.dismiss();
+        lastAction(articles);
     }
+
+    protected void lastAction(List<Article> articles) {}
 }
