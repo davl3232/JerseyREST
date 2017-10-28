@@ -56,4 +56,17 @@
             </author>
         </authors>
     </article>
+    <article id="3">
+        <title>Algo nuevo que ver</title>
+        <authors>
+            <author id="3">
+                <name>David</name>
+                <surname>Villamizar Lizcano</surname>
+            </author>
+            <author id="2">
+                <name>Juan Manuel</name>
+                <surname>Sanchez Lozano</surname>
+            </author>
+        </authors>
+    </article>
 </peercheck>
