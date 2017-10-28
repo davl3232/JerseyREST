@@ -17,6 +17,8 @@ import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 import co.edu.javeriana.ws.rest.model.Article;
 import co.edu.javeriana.ws.rest.model.Author;
 import co.edu.javeriana.ws.rest.model.Fibbonaci;
+import co.edu.javeriana.ws.rest.model.Peercheck;
+import java.util.Vector;
 
 public class RestClientMain {
 	public static final String MY_SERVER_URL = "http://localhost:8080";
@@ -68,7 +70,7 @@ public class RestClientMain {
 			.println("Response from server code: " + response.getStatus() + " - " + response.getStatusInfo());
 	}
 
-	public static void updateArticle(int id, Article article) {
+	public static void updateArticle(long id, Article article) {
 		// http://localhost:8080/class/article/{id}
 		WebTarget webTarget = baseWebTarget.path("class/article/" + id);
 		System.out.println("Requesting from server URI: " + webTarget.getUri());
@@ -82,7 +84,7 @@ public class RestClientMain {
 			.println("Response from server code: " + response.getStatus() + " - " + response.getStatusInfo());
 	}
 
-	public static Article getArticle(int id) {
+	public static Article getArticle(long id) {
 		// http://localhost:8080/class/article/{id}
 		WebTarget webTarget = baseWebTarget.path("class/article/" + id);
 		System.out.println("Requesting from server URI: " + webTarget.getUri());
@@ -105,7 +107,7 @@ public class RestClientMain {
 		
 	}
 
-	public static void deleteArticle(int id) {
+	public static void deleteArticle(long id) {
 		// http://localhost:8080/class/article/{id}
 		WebTarget webTarget = baseWebTarget.path("class/article/" + id);
 		System.out.println("Requesting from server URI: " + webTarget.getUri());
@@ -118,7 +120,7 @@ public class RestClientMain {
 				.println("Response from server code: " + response.getStatus() + " - " + response.getStatusInfo());
 	}
 
-	public static void getAllArticles() {
+	public static Vector<Article> getAllArticles() {
 		// http://localhost:8080/class/articles
 		WebTarget webTarget = baseWebTarget.path("class/articles");
 		System.out.println("Requesting from server URI: " + webTarget.getUri());
@@ -130,8 +132,10 @@ public class RestClientMain {
 		System.out
 				.println("Response from server code: " + response.getStatus() + " - " + response.getStatusInfo());
 		System.out.println("Media type: " + response.getMediaType().toString());
-		String respuestaTexto = response.readEntity(String.class);
-		System.out.println("Content: " + respuestaTexto);
+		Peercheck res = response.readEntity(Peercheck.class);
+		System.out.println("Content: " + res);
+		
+		return res.getArticles();
 	}
 	
 	public static String getFibonacciXML(int n) {

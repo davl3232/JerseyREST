@@ -60,4 +60,30 @@ public class Article {
 	public void addAuthor(Author author) {
 		this.authors.add(author);
 	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public void setAuthors(Vector<Author> authors) {
+		this.authors = authors;
+	}
+
+	@Override
+	public String toString() {
+		return "Article{" + "id=" + id + ", title=" + title + ", authors=" + authors + '}';
+	}
+
+	public void updateAuthor(long id, String name, String surname) {
+		for (int i = 0; i < authors.size(); i++) {
+			Author autor = authors.get(i);
+			if (autor.getId() == id) {
+				autor.setName(name);
+				autor.setSurname(surname);
+				break;
+			}
+		}
+	}
+
+	
 }
