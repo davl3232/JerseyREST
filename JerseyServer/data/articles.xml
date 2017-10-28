@@ -32,6 +32,14 @@
                 <name>Carlos</name>
                 <surname>Parra</surname>
             </author>
+            <author id="5">
+                <name>Carlos</name>
+                <surname>Parra</surname>
+            </author>
+            <author id="5">
+                <name>Carlos</name>
+                <surname>Parra</surname>
+            </author>
         </authors>
     </article>
     <article id="3">
@@ -44,6 +52,24 @@
             <author id="2">
                 <name>Sergio</name>
                 <surname>Forero Gómez</surname>
+            </author>
+        </authors>
+    </article>
+    <article id="4">
+        <title>Nuevo artículo</title>
+        <authors>
+            <author id="5">
+                <name>Carlos</name>
+                <surname>Parra</surname>
+            </author>
+        </authors>
+    </article>
+    <article id="4">
+        <title>Nuevo artículo</title>
+        <authors>
+            <author id="5">
+                <name>Carlos</name>
+                <surname>Parra</surname>
             </author>
         </authors>
     </article>

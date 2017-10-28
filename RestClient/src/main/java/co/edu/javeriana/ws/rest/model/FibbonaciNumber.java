@@ -1,4 +1,4 @@
-package co.edu.javeriana.webservices.rest;
+package co.edu.javeriana.ws.rest.model;
 
 import java.math.BigInteger;
 
@@ -31,5 +31,10 @@ public class FibbonaciNumber {
 	public FibbonaciNumber(int index, BigInteger number) {
 		this.index = index;
 		this.number = number;
+	}
+
+	@Override
+	public String toString() {
+		return "FibbonaciNumber{" + "index=" + index + ", number=" + number + '}';
 	}
 }

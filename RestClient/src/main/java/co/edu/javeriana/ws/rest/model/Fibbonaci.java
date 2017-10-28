@@ -1,4 +1,4 @@
-package co.edu.javeriana.webservices.rest;
+package co.edu.javeriana.ws.rest.model;
 
 import java.math.BigInteger;
 import java.util.Vector;
