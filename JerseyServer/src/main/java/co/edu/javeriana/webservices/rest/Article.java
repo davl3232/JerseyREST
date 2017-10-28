@@ -27,6 +27,10 @@ public class Article {
 		return this.id;
 	}
 	
+	public void setId(long id) {
+		this.id = id;
+	}
+	
 	public String getTitle() {
 		return this.title;
 	}
@@ -37,6 +41,10 @@ public class Article {
 	
 	public Vector<Author> getAuthors() {
 		return this.authors;
+	}
+	
+	public void setAuthors(Vector<Author> authors) {
+		this.authors = authors;
 	}
 	
 	public Article() {
