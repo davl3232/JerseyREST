@@ -1,5 +1,6 @@
 package co.edu.javeriana.webservices.rest;
 
+import java.io.File;
 import java.util.Date;
 
 import javax.ws.rs.Consumes;
@@ -19,6 +20,8 @@ import co.edu.javeriana.webservices.resources.Resources;
 
 @Path("class")
 public class MyResource {
+	protected String articlesFilename = "data/articles.xml";
+	protected String schemaFilename = "data/articlesSchema.xsd";
 	
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
@@ -55,7 +58,7 @@ public class MyResource {
 		return a * b;
 	}
 	
-	@POST
+	@GET
 	@Path("/fibbonaci/{n}")
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	public Fibbonaci fibbonaci(@PathParam("n") int n) {
@@ -74,10 +77,7 @@ public class MyResource {
 	@Path("/articles")
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	public Peercheck findAllArticles() {
-		String articles = Resources.getArticles().getFile();
-		String schema = Resources.getArticlesSchema().getFile();
-		
-		Peercheck peercheck = (Peercheck) JaxbReader.readAndValid(Peercheck.class, articles, schema);
+		Peercheck peercheck = (Peercheck) JaxbReader.readAndValid(Peercheck.class, articlesFilename, schemaFilename);
 		
 		return peercheck;
 	}
@@ -87,13 +87,11 @@ public class MyResource {
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	public Article postArticle(Article article) {
-		String articles = Resources.getArticles().getFile();
-		String schema = Resources.getArticlesSchema().getFile();
 		
-		Peercheck peercheck = (Peercheck) JaxbReader.readAndValid(Peercheck.class, articles, schema);
+		Peercheck peercheck = (Peercheck) JaxbReader.readAndValid(Peercheck.class, articlesFilename, schemaFilename);
 		
 		peercheck.addArticle(article);
-		JaxbWriter.writeAndValid(peercheck, articles, schema);
+		JaxbWriter.writeAndValid(peercheck, articlesFilename, schemaFilename);
 		
 		return article;
 	}
@@ -102,10 +100,8 @@ public class MyResource {
 	@Path("/article/{id}")
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	public Article getArticle(@PathParam("id") int idArticle) {
-		String articles = Resources.getArticles().getFile();
-		String schema = Resources.getArticlesSchema().getFile();
 		
-		Peercheck peercheck = (Peercheck) JaxbReader.readAndValid(Peercheck.class, articles, schema);
+		Peercheck peercheck = (Peercheck) JaxbReader.readAndValid(Peercheck.class, articlesFilename, schemaFilename);
 		
 		Article article = peercheck.findArticle(idArticle);
 		
@@ -117,13 +113,11 @@ public class MyResource {
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	public Article updateArticle(@PathParam("id") int id, Article article) {
-		String articles = Resources.getArticles().getFile();
-		String schema = Resources.getArticlesSchema().getFile();
 		
-		Peercheck peercheck = (Peercheck) JaxbReader.readAndValid(Peercheck.class, articles, schema);
+		Peercheck peercheck = (Peercheck) JaxbReader.readAndValid(Peercheck.class, articlesFilename, schemaFilename);
 		
 		Article articleModified = peercheck.updateArticle(id, article);
-		JaxbWriter.writeAndValid(peercheck, articles, schema);
+		JaxbWriter.writeAndValid(peercheck, articlesFilename, schemaFilename);
 		
 		return articleModified;
 	}
@@ -132,13 +126,11 @@ public class MyResource {
 	@Path("/article/{id}")
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	public Article deleteArticle(@PathParam("id") int idArticle) {
-		String articles = Resources.getArticles().getFile();
-		String schema = Resources.getArticlesSchema().getFile();
 		
-		Peercheck peercheck = (Peercheck) JaxbReader.readAndValid(Peercheck.class, articles, schema);
+		Peercheck peercheck = (Peercheck) JaxbReader.readAndValid(Peercheck.class, articlesFilename, schemaFilename);
 		
 		Article article = peercheck.removeArticle(idArticle);
-		JaxbWriter.writeAndValid(peercheck, articles, schema);
+		JaxbWriter.writeAndValid(peercheck, articlesFilename, schemaFilename);
 		
 		return article;
 	}

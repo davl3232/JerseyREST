@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<peercheck>
+	<article id="0">
+		<title>Programación avanzada en c++</title>
+		<authors>
+			<author id="1">
+				<name>Juan Manuel</name>
+				<surname>Sánchez Lozano</surname>
+			</author>
+			<author id="2">
+				<name>Sergio</name>
+				<surname>Forero Gómez</surname>
+			</author>
+		</authors>
+	</article>
+	<article id="1">
+		<title>Web services, SOAP o REST</title>
+		<authors>
+			<author id="3">
+				<name>David</name>
+				<surname>Villamizar Lizcano</surname>
+			</author>
+			<author id="4">
+				<name>Sebastian</name>
+				<surname>Bobadilla</surname>
+			</author>
+			<author id="1">
+				<name>Juan Manuel</name>
+				<surname>Sánchez Lozano</surname>
+			</author>
+		</authors>
+	</article>
+	<article id="2">
+		<title>Programación en la web, PHP</title>
+		<authors>
+			<author id="3">
+				<name>David</name>
+				<surname>Villamizar Lizcano</surname>
+			</author>
+			<author id="4">
+				<name>Sebastian</name>
+				<surname>Bobadilla</surname>
+			</author>
+		</authors>
+	</article>
+	<article id="3">
+		<title>Análisis de algoritmos - Programación dinamica</title>
+		<authors>
+			<author id="3">
+				<name>David</name>
+				<surname>Villamizar Lizcano</surname>
+			</author>
+			<author id="2">
+				<name>Sergio</name>
+				<surname>Forero Gómez</surname>
+			</author>
+		</authors>
+	</article>
+</peercheck>
