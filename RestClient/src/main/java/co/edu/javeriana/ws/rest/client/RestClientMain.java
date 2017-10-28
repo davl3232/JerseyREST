@@ -16,16 +16,21 @@ import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 
 import co.edu.javeriana.ws.rest.model.Article;
 import co.edu.javeriana.ws.rest.model.Author;
+import co.edu.javeriana.ws.rest.model.Fibbonaci;
 
 public class RestClientMain {
 	public static final String MY_SERVER_URL = "http://localhost:8080";
 	public static WebTarget baseWebTarget;
 	public static Client client;
 	
-	public static void main(String args[]) {
+	public static void init() {
 		client = ClientBuilder.newClient();
 		client.register(JacksonJaxbJsonProvider.class);
 		baseWebTarget = client.target(MY_SERVER_URL);
+	}
+	
+	public static void main(String args[]) {
+		init();
 		
 		getFibonacciJSON(10); // http://localhost:8080/class/fibbonaci/{n}
 		
@@ -49,7 +54,7 @@ public class RestClientMain {
 		createArticle(art); // http://localhost:8080/class/article/{id}
 	}
 
-	private static void createArticle(Article article) {
+	public static void createArticle(Article article) {
 		// http://localhost:8080/class/article
 		WebTarget webTarget = baseWebTarget.path("class/article");
 		System.out.println("Requesting from server URI: " + webTarget.getUri());
@@ -63,7 +68,7 @@ public class RestClientMain {
 			.println("Response from server code: " + response.getStatus() + " - " + response.getStatusInfo());
 	}
 
-	private static void updateArticle(int id, Article article) {
+	public static void updateArticle(int id, Article article) {
 		// http://localhost:8080/class/article/{id}
 		WebTarget webTarget = baseWebTarget.path("class/article/" + id);
 		System.out.println("Requesting from server URI: " + webTarget.getUri());
@@ -77,7 +82,7 @@ public class RestClientMain {
 			.println("Response from server code: " + response.getStatus() + " - " + response.getStatusInfo());
 	}
 
-	private static Article getArticle(int id) {
+	public static Article getArticle(int id) {
 		// http://localhost:8080/class/article/{id}
 		WebTarget webTarget = baseWebTarget.path("class/article/" + id);
 		System.out.println("Requesting from server URI: " + webTarget.getUri());
@@ -100,7 +105,7 @@ public class RestClientMain {
 		
 	}
 
-	private static void deleteArticle(int id) {
+	public static void deleteArticle(int id) {
 		// http://localhost:8080/class/article/{id}
 		WebTarget webTarget = baseWebTarget.path("class/article/" + id);
 		System.out.println("Requesting from server URI: " + webTarget.getUri());
@@ -113,7 +118,7 @@ public class RestClientMain {
 				.println("Response from server code: " + response.getStatus() + " - " + response.getStatusInfo());
 	}
 
-	private static void getAllArticles() {
+	public static void getAllArticles() {
 		// http://localhost:8080/class/articles
 		WebTarget webTarget = baseWebTarget.path("class/articles");
 		System.out.println("Requesting from server URI: " + webTarget.getUri());
@@ -129,7 +134,7 @@ public class RestClientMain {
 		System.out.println("Content: " + respuestaTexto);
 	}
 	
-	private static void getFibonacciXML(int n) {
+	public static String getFibonacciXML(int n) {
 		// http://localhost:8080/class/fibbonaci/{n}
 		WebTarget webTarget = baseWebTarget.path("class/fibbonaci/" + n);
 		System.out.println("Requesting from server URI: " + webTarget.getUri());
@@ -143,9 +148,11 @@ public class RestClientMain {
 		System.out.println("Media type: " + response.getMediaType().toString());
 		String respuestaTexto = response.readEntity(String.class);
 		System.out.println("Content: " + respuestaTexto);
+		
+		return respuestaTexto;
 	}
 	
-	private static void getFibonacciJSON(int n) {
+	public static String getFibonacciJSON(int n) {
 		// http://localhost:8080/class/fibbonaci/{n}
 		WebTarget webTarget = baseWebTarget.path("class/fibbonaci/" + n);
 		System.out.println("Requesting from server URI: " + webTarget.getUri());
@@ -159,5 +166,25 @@ public class RestClientMain {
 		System.out.println("Media type: " + response.getMediaType().toString());
 		String respuestaTexto = response.readEntity(String.class);
 		System.out.println("Content: " + respuestaTexto);
+		
+		return respuestaTexto;
+	}
+	
+	public static Fibbonaci getFibonacciLista(int n) {
+		// http://localhost:8080/class/fibbonaci/{n}
+		WebTarget webTarget = baseWebTarget.path("class/fibbonaci/" + n);
+		System.out.println("Requesting from server URI: " + webTarget.getUri());
+		
+		// Concatena servidor y el path al recurso
+		Invocation.Builder invocationBuilder = webTarget
+				.request(MediaType.APPLICATION_XML);
+		Response response = invocationBuilder.get();
+		System.out
+				.println("Response from server code: " + response.getStatus() + " - " + response.getStatusInfo());
+		System.out.println("Media type: " + response.getMediaType().toString());
+		Fibbonaci res = response.readEntity(Fibbonaci.class);
+		System.out.println("Content: " + res);
+		
+		return res;
 	}
 }
