@@ -29,7 +29,7 @@ public class ListActivity extends AppCompatActivity {
         articles = new ArrayList<>();
         articleAdapter = new ArticleAdapter(this, articles);
         list.setAdapter(articleAdapter);
-        service = new RESTPeercheckService(this, "", "articles") {
+        service = new RESTPeercheckService(this, "", "articles", RESTPeercheckService.METHOD_GET_ARTICLES) {
             @Override
             protected void lastAction(List<Article> articles) {
                 ListActivity.this.articles = articles;

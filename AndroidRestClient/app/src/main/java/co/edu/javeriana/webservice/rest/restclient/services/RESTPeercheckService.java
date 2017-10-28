@@ -30,15 +30,19 @@ public class RESTPeercheckService extends AsyncTask<String, Void, String> {
 
     protected static final String SERVICE_URL = "http://10.155.100.223:8080/class";
 
+    public static final int METHOD_GET_ARTICLES = 0;
+
     private ProgressDialog dialog;
     private Activity activity;
     private String queryParams;
     private String pathParams;
+    private int method;
 
-    public RESTPeercheckService(Activity activity, String queryParams, String pathParams) {
+    public RESTPeercheckService(Activity activity, String queryParams, String pathParams, int method) {
         this.activity = activity;
         this.queryParams = queryParams;
         this.pathParams = pathParams;
+        this.method = method;
     }
 
     @Override
@@ -56,32 +60,46 @@ public class RESTPeercheckService extends AsyncTask<String, Void, String> {
 
         String uri = SERVICE_URL + "/" + pathParams;
 
-        HttpGet request = new HttpGet(uri);
-        request.addHeader("Accept", "application/json");
-        HttpClient client = new DefaultHttpClient();
         HttpResponse response = null;
 
-        Log.i(RESTPeercheckService.class.getName(), request.getMethod() + " : " + request.getURI().toString());
-        try {
-            response = client.execute(request);
-            int responseCode = response.getStatusLine().getStatusCode();
-            String message = response.getStatusLine().getReasonPhrase();
-            HttpEntity entity = response.getEntity();
-            Log.i(RESTPeercheckService.class.getName(), "Response code: " + responseCode);
-            Log.i(RESTPeercheckService.class.getName(), "Response message: " + message);
+        switch (method) {
+            case METHOD_GET_ARTICLES:
+                response = getArticle(uri);
+                break;
+        }
 
-            if(entity != null) {
+        int responseCode = response.getStatusLine().getStatusCode();
+        String message = response.getStatusLine().getReasonPhrase();
+        HttpEntity entity = response.getEntity();
+        Log.i(RESTPeercheckService.class.getName(), "Response code: " + responseCode);
+        Log.i(RESTPeercheckService.class.getName(), "Response message: " + message);
+
+        if(entity != null) {
+            try {
                 respondMessage = EntityUtils.toString(entity, "UTF-8");
+            } catch (IOException e) {
+                Log.e(RESTPeercheckService.class.getName(), e.getMessage());
             }
-        } catch (IOException e) {
-            Log.e(RESTPeercheckService.class.getName(), e.getMessage());
         }
         return respondMessage;
     }
 
+    private HttpResponse getArticle(String URL) {
+        HttpGet request = new HttpGet(URL);
+        request.addHeader("Accept", "application/json");
+        HttpClient client = new DefaultHttpClient();
+        Log.i(RESTPeercheckService.class.getName(), request.getMethod() + " : " + request.getURI().toString());
+        try {
+            return client.execute(request);
+        } catch (IOException e) {
+            Log.e(RESTPeercheckService.class.getName(), e.getMessage());
+        }
+        return null;
+    }
+
     @Override
     protected void onPostExecute(String response) {
-        Log.e(RESTPeercheckService.class.getName(), "Finalizado");
+        Log.i(RESTPeercheckService.class.getName(), "Finalizado");
         JSONObject result;
         List<Article> articles = new ArrayList<>();
         try {

@@ -38,7 +38,7 @@ public class Main {
 	
 	public static void main(String[] args) throws IOException {
 		final HttpServer server = Main.startServer();
-		System.out.println(String.format("-------------------------------\n" + "\tJersey app started with WADL available at\n" + "\t%sapplication.wadl\n" + "\tHit enter to stop it...", Main.BASE_URI));
+		System.out.println(String.format("-------------------------------\n" + "\tJersey app started with WADL available at\n" + "\t%s/application.wadl\n" + "\tHit enter to stop it...", Main.BASE_URI));
 		System.in.read();
 		server.shutdown();
 	}
