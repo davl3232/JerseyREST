@@ -77,7 +77,7 @@ public class RestClientMain {
 		
 		// Concatena servidor y el path al recurso
 		Invocation.Builder invocationBuilder = webTarget
-				.request(MediaType.APPLICATION_XML);
+				.request(MediaType.APPLICATION_JSON);
 		
 		Response response = invocationBuilder.put(Entity.xml(article));
 		System.out

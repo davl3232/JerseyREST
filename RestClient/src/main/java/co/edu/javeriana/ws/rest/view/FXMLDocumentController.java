@@ -152,7 +152,7 @@ public class FXMLDocumentController implements Initializable {
 	
 	@FXML
 	private void crearAutor(ActionEvent event) {
-		articuloSel.addAuthor((long) (int) spnIdArticulo.getValue(), txtNombreAutor.getText().toString(), txtApellidoAutor.getText().toString());
+		articuloSel.addAuthor((long) (int) spnIdAutor.getValue(), txtNombreAutor.getText().toString(), txtApellidoAutor.getText().toString());
 		RestClientMain.updateArticle(articuloSel.getId(), articuloSel);
 		
 		tblAutores.getItems().setAll(articuloSel.getAuthors());
@@ -160,7 +160,7 @@ public class FXMLDocumentController implements Initializable {
 	
 	@FXML
 	private void editarAutor(ActionEvent event) {
-		articuloSel.updateAuthor((long) (int) spnIdArticulo.getValue(), txtNombreAutor.getText().toString(), txtApellidoAutor.getText().toString());
+		articuloSel.updateAuthor((long) (int) spnIdAutor.getValue(), txtNombreAutor.getText().toString(), txtApellidoAutor.getText().toString());
 		RestClientMain.updateArticle(articuloSel.getId(), articuloSel);
 		
 		tblAutores.getItems().setAll(articuloSel.getAuthors());

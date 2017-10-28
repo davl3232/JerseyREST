@@ -18,7 +18,19 @@ public class Author {
 	
 	@XmlElement(required = true)
 	private String surname;
-	
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+	 
 	public long getId() {
 		return this.id;
 	}

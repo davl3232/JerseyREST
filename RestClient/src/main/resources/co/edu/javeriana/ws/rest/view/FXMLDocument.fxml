@@ -172,7 +172,7 @@
                <center>
                   <SplitPane dividerPositions="0.46035805626598464" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
                      <items>
-                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="320.0" prefWidth="355.0">
+                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <children>
                               <Label alignment="BASELINE_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Artículos" VBox.vgrow="NEVER">
                                  <padding>
@@ -181,10 +181,10 @@
                               </Label>
                               <ScrollPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                                  <content>
-                                    <TableView fx:id="tblArticulos" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                                    <TableView fx:id="tblArticulos" maxHeight="-Infinity" maxWidth="1.7976931348623157E308">
                                        <columns>
-                                          <TableColumn fx:id="colIdArticulo" maxWidth="1.7976931348623157E308" minWidth="-1.0" text="ID" />
-                                          <TableColumn fx:id="colTituloArticulo" maxWidth="1.7976931348623157E308" minWidth="-1.0" text="Título" />
+                                          <TableColumn fx:id="colIdArticulo" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="50.0" text="ID" />
+                                          <TableColumn fx:id="colTituloArticulo" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="400.0" text="Título" />
                                        </columns>
                                     </TableView>
                                  </content>
@@ -199,7 +199,7 @@
                               </ToolBar>
                            </children>
                         </VBox>
-                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="320.0" prefWidth="148.0">
+                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <children>
                               <Label alignment="BASELINE_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Autores" VBox.vgrow="NEVER">
                                  <padding>
@@ -208,11 +208,11 @@
                               </Label>
                               <ScrollPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                                  <content>
-                                    <TableView fx:id="tblAutores" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                                    <TableView fx:id="tblAutores" maxHeight="-Infinity" maxWidth="1.7976931348623157E308">
                                        <columns>
-                                          <TableColumn fx:id="colIdAutor" maxWidth="1.7976931348623157E308" minWidth="-1.0" text="ID" />
-                                          <TableColumn fx:id="colNombreAutor" maxWidth="1.7976931348623157E308" minWidth="-1.0" text="Nombre" />
-                                          <TableColumn fx:id="colApellidoAutor" maxWidth="1.7976931348623157E308" minWidth="-1.0" text="Apellido" />
+                                          <TableColumn fx:id="colIdAutor" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="50.0" text="ID" />
+                                          <TableColumn fx:id="colNombreAutor" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="200.0" text="Nombre" />
+                                          <TableColumn fx:id="colApellidoAutor" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="200.0" text="Apellido" />
                                        </columns>
                                     </TableView>
                                  </content>
