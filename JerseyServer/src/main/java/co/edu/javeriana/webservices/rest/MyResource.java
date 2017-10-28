@@ -1,6 +1,5 @@
 package co.edu.javeriana.webservices.rest;
 
-import java.io.File;
 import java.util.Date;
 
 import javax.ws.rs.Consumes;
@@ -16,7 +15,6 @@ import javax.ws.rs.core.MediaType;
 
 import co.edu.javeriana.webservices.jaxb.JaxbReader;
 import co.edu.javeriana.webservices.jaxb.JaxbWriter;
-import co.edu.javeriana.webservices.resources.Resources;
 
 @Path("class")
 public class MyResource {
@@ -77,7 +75,7 @@ public class MyResource {
 	@Path("/articles")
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	public Peercheck findAllArticles() {
-		Peercheck peercheck = (Peercheck) JaxbReader.readAndValid(Peercheck.class, articlesFilename, schemaFilename);
+		Peercheck peercheck = (Peercheck) JaxbReader.readAndValid(Peercheck.class, this.articlesFilename, this.schemaFilename);
 		
 		return peercheck;
 	}
@@ -88,10 +86,10 @@ public class MyResource {
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	public Article postArticle(Article article) {
 		
-		Peercheck peercheck = (Peercheck) JaxbReader.readAndValid(Peercheck.class, articlesFilename, schemaFilename);
+		Peercheck peercheck = (Peercheck) JaxbReader.readAndValid(Peercheck.class, this.articlesFilename, this.schemaFilename);
 		
 		peercheck.addArticle(article);
-		JaxbWriter.writeAndValid(peercheck, articlesFilename, schemaFilename);
+		JaxbWriter.writeAndValid(peercheck, this.articlesFilename, this.schemaFilename);
 		
 		return article;
 	}
@@ -101,7 +99,7 @@ public class MyResource {
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	public Article getArticle(@PathParam("id") int idArticle) {
 		
-		Peercheck peercheck = (Peercheck) JaxbReader.readAndValid(Peercheck.class, articlesFilename, schemaFilename);
+		Peercheck peercheck = (Peercheck) JaxbReader.readAndValid(Peercheck.class, this.articlesFilename, this.schemaFilename);
 		
 		Article article = peercheck.findArticle(idArticle);
 		
@@ -114,10 +112,10 @@ public class MyResource {
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	public Article updateArticle(@PathParam("id") int id, Article article) {
 		
-		Peercheck peercheck = (Peercheck) JaxbReader.readAndValid(Peercheck.class, articlesFilename, schemaFilename);
+		Peercheck peercheck = (Peercheck) JaxbReader.readAndValid(Peercheck.class, this.articlesFilename, this.schemaFilename);
 		
 		Article articleModified = peercheck.updateArticle(id, article);
-		JaxbWriter.writeAndValid(peercheck, articlesFilename, schemaFilename);
+		JaxbWriter.writeAndValid(peercheck, this.articlesFilename, this.schemaFilename);
 		
 		return articleModified;
 	}
@@ -127,10 +125,10 @@ public class MyResource {
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	public Article deleteArticle(@PathParam("id") int idArticle) {
 		
-		Peercheck peercheck = (Peercheck) JaxbReader.readAndValid(Peercheck.class, articlesFilename, schemaFilename);
+		Peercheck peercheck = (Peercheck) JaxbReader.readAndValid(Peercheck.class, this.articlesFilename, this.schemaFilename);
 		
 		Article article = peercheck.removeArticle(idArticle);
-		JaxbWriter.writeAndValid(peercheck, articlesFilename, schemaFilename);
+		JaxbWriter.writeAndValid(peercheck, this.articlesFilename, this.schemaFilename);
 		
 		return article;
 	}
