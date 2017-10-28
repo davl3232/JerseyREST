@@ -14,7 +14,7 @@
         </authors>
     </article>
     <article id="2">
-        <title>Nuevo título</title>
+        <title>Nuevo tÃ­tulo</title>
         <authors>
             <author id="3">
                 <name>David</name>
@@ -23,6 +23,10 @@
             <author id="4">
                 <name>Sebastian</name>
                 <surname>Bobadilla</surname>
+            </author>
+            <author id="5">
+                <name>Carlos</name>
+                <surname>Parra</surname>
             </author>
             <author id="5">
                 <name>Carlos</name>
@@ -59,6 +63,15 @@
                 <name>Carlos</name>
                 <surname>Parra</surname>
             </author>
+            <author id="5">
+                <name>Carlos</name>
+                <surname>Parra</surname>
+            </author>
+        </authors>
+    </article>
+    <article id="4">
+        <title>Nuevo artÃ­culo</title>
+        <authors>
             <author id="5">
                 <name>Carlos</name>
                 <surname>Parra</surname>

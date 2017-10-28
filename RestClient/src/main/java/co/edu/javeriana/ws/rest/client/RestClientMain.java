@@ -1,6 +1,8 @@
 package co.edu.javeriana.ws.rest.client;
 
-import java.io.StringWriter;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Vector;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -9,8 +11,6 @@ import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 
@@ -18,84 +18,90 @@ import co.edu.javeriana.ws.rest.model.Article;
 import co.edu.javeriana.ws.rest.model.Author;
 import co.edu.javeriana.ws.rest.model.Fibbonaci;
 import co.edu.javeriana.ws.rest.model.Peercheck;
-import java.util.Vector;
 
 public class RestClientMain {
-	public static final String MY_SERVER_URL = "http://localhost:8080";
+	
+	private static InetAddress myIP = null;
+	public static String MY_SERVER_URL = "http://localhost:8080";
 	public static WebTarget baseWebTarget;
 	public static Client client;
 	
+	static {
+		try {
+			RestClientMain.myIP = InetAddress.getLocalHost();
+			RestClientMain.MY_SERVER_URL = "http://" + RestClientMain.myIP.getHostAddress() + ":8080";
+			System.out.println(RestClientMain.MY_SERVER_URL);
+		}
+		catch (UnknownHostException event) {
+			System.out.println("Error: [" + event.getMessage() + "]");
+		}
+	}
+	
 	public static void init() {
-		client = ClientBuilder.newClient();
-		client.register(JacksonJaxbJsonProvider.class);
-		baseWebTarget = client.target(MY_SERVER_URL);
+		RestClientMain.client = ClientBuilder.newClient();
+		RestClientMain.client.register(JacksonJaxbJsonProvider.class);
+		RestClientMain.baseWebTarget = RestClientMain.client.target(RestClientMain.MY_SERVER_URL);
 	}
 	
 	public static void main(String args[]) {
-		init();
+		RestClientMain.init();
 		
-		getFibonacciJSON(10); // http://localhost:8080/class/fibbonaci/{n}
+		RestClientMain.getFibonacciJSON(10); // http://localhost:8080/class/fibbonaci/{n}
 		
-		getFibonacciXML(10); // http://localhost:8080/class/fibbonaci/{n}
+		RestClientMain.getFibonacciXML(10); // http://localhost:8080/class/fibbonaci/{n}
 		
-		getAllArticles(); // http://localhost:8080/class/articles
+		RestClientMain.getAllArticles(); // http://localhost:8080/class/articles
 		
-		deleteArticle(1); // http://localhost:8080/class/article/{id}
-		getAllArticles(); // http://localhost:8080/class/articles
+		RestClientMain.deleteArticle(1); // http://localhost:8080/class/article/{id}
+		RestClientMain.getAllArticles(); // http://localhost:8080/class/articles
 		
 		Author aut = new Author(5, "Carlos", "Parra");
-		Article art = getArticle(2);
+		Article art = RestClientMain.getArticle(2);
 		if (art != null) {
 			art.setTitle("Nuevo título");
 			art.getAuthors().add(aut);
-			updateArticle(2, art); // http://localhost:8080/class/article/{id}
+			RestClientMain.updateArticle(2, art); // http://localhost:8080/class/article/{id}
 		}
 		
 		art = new Article(4, "Nuevo artículo");
 		art.getAuthors().add(aut);
-		createArticle(art); // http://localhost:8080/class/article/{id}
+		RestClientMain.createArticle(art); // http://localhost:8080/class/article/{id}
 	}
-
+	
 	public static void createArticle(Article article) {
 		// http://localhost:8080/class/article
-		WebTarget webTarget = baseWebTarget.path("class/article");
+		WebTarget webTarget = RestClientMain.baseWebTarget.path("class/article");
 		System.out.println("Requesting from server URI: " + webTarget.getUri());
 		
 		// Concatena servidor y el path al recurso
-		Invocation.Builder invocationBuilder = webTarget
-				.request(MediaType.APPLICATION_XML);
+		Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_XML);
 		
 		Response response = invocationBuilder.post(Entity.xml(article));
-		System.out
-			.println("Response from server code: " + response.getStatus() + " - " + response.getStatusInfo());
+		System.out.println("Response from server code: " + response.getStatus() + " - " + response.getStatusInfo());
 	}
-
+	
 	public static void updateArticle(long id, Article article) {
 		// http://localhost:8080/class/article/{id}
-		WebTarget webTarget = baseWebTarget.path("class/article/" + id);
+		WebTarget webTarget = RestClientMain.baseWebTarget.path("class/article/" + id);
 		System.out.println("Requesting from server URI: " + webTarget.getUri());
 		
 		// Concatena servidor y el path al recurso
-		Invocation.Builder invocationBuilder = webTarget
-				.request(MediaType.APPLICATION_XML);
+		Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_XML);
 		
 		Response response = invocationBuilder.put(Entity.xml(article));
-		System.out
-			.println("Response from server code: " + response.getStatus() + " - " + response.getStatusInfo());
+		System.out.println("Response from server code: " + response.getStatus() + " - " + response.getStatusInfo());
 	}
-
+	
 	public static Article getArticle(long id) {
 		// http://localhost:8080/class/article/{id}
-		WebTarget webTarget = baseWebTarget.path("class/article/" + id);
+		WebTarget webTarget = RestClientMain.baseWebTarget.path("class/article/" + id);
 		System.out.println("Requesting from server URI: " + webTarget.getUri());
 		
 		// Concatena servidor y el path al recurso
-		Invocation.Builder invocationBuilder = webTarget
-				.request(MediaType.APPLICATION_XML);
+		Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_XML);
 		Response response = invocationBuilder.get();
-
-		System.out
-			.println("Response from server code: " + response.getStatus() + " - " + response.getStatusInfo());
+		
+		System.out.println("Response from server code: " + response.getStatus() + " - " + response.getStatusInfo());
 		if (response.getLength() > 0) {
 			System.out.println("Media type: " + response.getMediaType().toString());
 			Article res = response.readEntity(Article.class);
@@ -106,31 +112,27 @@ public class RestClientMain {
 		}
 		
 	}
-
+	
 	public static void deleteArticle(long id) {
 		// http://localhost:8080/class/article/{id}
-		WebTarget webTarget = baseWebTarget.path("class/article/" + id);
+		WebTarget webTarget = RestClientMain.baseWebTarget.path("class/article/" + id);
 		System.out.println("Requesting from server URI: " + webTarget.getUri());
 		
 		// Concatena servidor y el path al recurso
-		Invocation.Builder invocationBuilder = webTarget
-				.request(MediaType.APPLICATION_XML);
+		Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_XML);
 		Response response = invocationBuilder.delete();
-		System.out
-				.println("Response from server code: " + response.getStatus() + " - " + response.getStatusInfo());
+		System.out.println("Response from server code: " + response.getStatus() + " - " + response.getStatusInfo());
 	}
-
+	
 	public static Vector<Article> getAllArticles() {
 		// http://localhost:8080/class/articles
-		WebTarget webTarget = baseWebTarget.path("class/articles");
+		WebTarget webTarget = RestClientMain.baseWebTarget.path("class/articles");
 		System.out.println("Requesting from server URI: " + webTarget.getUri());
 		
 		// Concatena servidor y el path al recurso
-		Invocation.Builder invocationBuilder = webTarget
-				.request(MediaType.APPLICATION_XML);
+		Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_XML);
 		Response response = invocationBuilder.get();
-		System.out
-				.println("Response from server code: " + response.getStatus() + " - " + response.getStatusInfo());
+		System.out.println("Response from server code: " + response.getStatus() + " - " + response.getStatusInfo());
 		System.out.println("Media type: " + response.getMediaType().toString());
 		Peercheck res = response.readEntity(Peercheck.class);
 		System.out.println("Content: " + res);
@@ -140,15 +142,13 @@ public class RestClientMain {
 	
 	public static String getFibonacciXML(int n) {
 		// http://localhost:8080/class/fibbonaci/{n}
-		WebTarget webTarget = baseWebTarget.path("class/fibbonaci/" + n);
+		WebTarget webTarget = RestClientMain.baseWebTarget.path("class/fibbonaci/" + n);
 		System.out.println("Requesting from server URI: " + webTarget.getUri());
 		
 		// Concatena servidor y el path al recurso
-		Invocation.Builder invocationBuilder = webTarget
-				.request(MediaType.APPLICATION_XML);
+		Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_XML);
 		Response response = invocationBuilder.get();
-		System.out
-				.println("Response from server code: " + response.getStatus() + " - " + response.getStatusInfo());
+		System.out.println("Response from server code: " + response.getStatus() + " - " + response.getStatusInfo());
 		System.out.println("Media type: " + response.getMediaType().toString());
 		String respuestaTexto = response.readEntity(String.class);
 		System.out.println("Content: " + respuestaTexto);
@@ -158,15 +158,13 @@ public class RestClientMain {
 	
 	public static String getFibonacciJSON(int n) {
 		// http://localhost:8080/class/fibbonaci/{n}
-		WebTarget webTarget = baseWebTarget.path("class/fibbonaci/" + n);
+		WebTarget webTarget = RestClientMain.baseWebTarget.path("class/fibbonaci/" + n);
 		System.out.println("Requesting from server URI: " + webTarget.getUri());
 		
 		// Concatena servidor y el path al recurso
-		Invocation.Builder invocationBuilder = webTarget
-				.request(MediaType.APPLICATION_JSON);
+		Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
 		Response response = invocationBuilder.get();
-		System.out
-				.println("Response from server code: " + response.getStatus() + " - " + response.getStatusInfo());
+		System.out.println("Response from server code: " + response.getStatus() + " - " + response.getStatusInfo());
 		System.out.println("Media type: " + response.getMediaType().toString());
 		String respuestaTexto = response.readEntity(String.class);
 		System.out.println("Content: " + respuestaTexto);
@@ -176,15 +174,13 @@ public class RestClientMain {
 	
 	public static Fibbonaci getFibonacciLista(int n) {
 		// http://localhost:8080/class/fibbonaci/{n}
-		WebTarget webTarget = baseWebTarget.path("class/fibbonaci/" + n);
+		WebTarget webTarget = RestClientMain.baseWebTarget.path("class/fibbonaci/" + n);
 		System.out.println("Requesting from server URI: " + webTarget.getUri());
 		
 		// Concatena servidor y el path al recurso
-		Invocation.Builder invocationBuilder = webTarget
-				.request(MediaType.APPLICATION_XML);
+		Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_XML);
 		Response response = invocationBuilder.get();
-		System.out
-				.println("Response from server code: " + response.getStatus() + " - " + response.getStatusInfo());
+		System.out.println("Response from server code: " + response.getStatus() + " - " + response.getStatusInfo());
 		System.out.println("Media type: " + response.getMediaType().toString());
 		Fibbonaci res = response.readEntity(Fibbonaci.class);
 		System.out.println("Content: " + res);
